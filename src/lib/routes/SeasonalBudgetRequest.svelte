@@ -1,6 +1,6 @@
 <script>
   import SelectTeam from "../components/SelectTeam.svelte";
-  import InputPrtnAmount from "../components/InputPRTNAmount.svelte";
+  import InputPrtnAmount from "../components/InputPrtnAmount.svelte";
   import InputUsdcAmount from "../components/InputUsdcAmount.svelte";
   import BudgetBreakdown from "../components/BudgetBreakdown.svelte";
   import PrevSeasonRecap from "../components/PrevSeasonRecap.svelte";
