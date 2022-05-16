@@ -13,7 +13,10 @@ const getUrlSearchParam = (name, url=window.location.href) => {
 }
 
 const createAuthStore = () => {
-  const initialState = {}
+  const initialState = {
+    method: {},
+    user: {}
+  }
   const {subscribe, update, set} = writable(initialState)
 
   const authenticate = async () => {
