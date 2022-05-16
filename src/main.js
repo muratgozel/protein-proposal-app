@@ -5,6 +5,8 @@ import { register, init, locale } from 'svelte-i18n'
 import { enableES5 } from 'immer'
 import App from './App.svelte'
 
+// https://quilljs.com/docs/configuration/
+
 enableES5()
 
 const region = regionist.guess()

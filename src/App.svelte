@@ -6,6 +6,7 @@
   import Loading from "./lib/components/Loading.svelte";
   import Home from './lib/routes/Home.svelte';
   import Footer from './lib/components/Footer.svelte';
+  import SigninWithDiscourse from './lib/components/SigninWithDiscourse.svelte';
   import SeasonalBudgetRequest from './lib/routes/SeasonalBudgetRequest.svelte';
   import {auth} from './lib/store/auth.js';
 
@@ -23,11 +24,17 @@
 {:then authobj}
   <Header />
 
+  {#if authobj.method.name == "discourse"}
     <Router url={url} basepath="/">
       <Route path="/"><Home /></Route>
       <Route path="/proposal/create/seasonal-budget-request"><SeasonalBudgetRequest /></Route>
     </Router>
-    
+  {:else}
+    <div class="body">
+      <SigninWithDiscourse />
+    </div>
+  {/if}
+  
   <Footer />  
 {:catch error}
   <Header />
@@ -36,4 +43,8 @@
 </Notifications>
 
 <style>
+  .body {
+    width: 1024px;
+    margin: 0 auto;
+  }
 </style>
