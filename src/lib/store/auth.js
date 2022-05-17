@@ -28,16 +28,25 @@ const createAuthStore = () => {
         Authorization: 'Bearer ' + token
       }
     })
-    const json = await resp.json()
-    if (json.revoked) {
-      set(initialState)
-      store.remove('token')
+    if (resp.status < 200 || resp.status > 299) {
+      return initialState
+    }
+    try {
+      const json = await resp.json()
+      if (json.revoked) {
+        set(initialState)
+        store.remove('token')
+        return initialState
+      }
+
+      store.set('token', token)
+      set(json)
+      return json  
+    } catch (error) {
       return initialState
     }
 
-    store.set('token', token)
-    set(json)
-    return json
+    return initialState
   }
 
   return {
