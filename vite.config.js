@@ -8,7 +8,8 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 export default defineConfig({
   build: {
     sourcemap: true,
-    outDir: 'public'
+    outDir: 'public',
+    target: 'es2015'
   },
   resolve: {
     alias: [
