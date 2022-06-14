@@ -20,7 +20,7 @@ init({
 
 const app = new App({
   target: document.getElementById('app'),
-  hydrate: import.meta.env.DEV ? false : true,
+  hydrate: false,//import.meta.env.DEV ? false : true,
   props: {}
 })
 
