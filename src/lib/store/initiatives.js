@@ -4,18 +4,18 @@ import store from 'store/dist/store.modern'
 import { sortBy } from "underscore";
 
 const restoreItems = () => {
-  const items = store.get('budgetBreakdown')
+  const items = store.get('initiatives')
 
   return Array.isArray(items) ? items : []
 }
 
-const createBudgetBreakdownStore = () => {
+const createInitiativesStore = () => {
   const initialState = restoreItems()
   const { subscribe, update, set } = writable(initialState)
 
   const flush = () => {
     set([])
-    store.set('budgetBreakdown', [])
+    store.set('initiatives', [])
   }
 
   const add = (payload) => {
@@ -44,8 +44,8 @@ const createBudgetBreakdownStore = () => {
   }
 }
 
-export const budgetBreakdown = createBudgetBreakdownStore()
+export const initiatives = createInitiativesStore()
 
-budgetBreakdown.subscribe(state => {
-  store.set('budgetBreakdown', state)
+initiatives.subscribe(state => {
+  store.set('initiatives', state)
 })

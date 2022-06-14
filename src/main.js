@@ -1,11 +1,11 @@
-import './lib/style/normalize.css'
-import './lib/style/global.css'
+import '@/lib/style/normalize.css'
+import '@/lib/style/global.css'
+import 'quill/dist/quill.bubble.css';
+import '@/lib/style/gridjs.css';
 import { regionist } from 'regionist'
 import { register, init, locale } from 'svelte-i18n'
 import { enableES5 } from 'immer'
 import App from './App.svelte'
-
-// https://quilljs.com/docs/configuration/
 
 enableES5()
 

@@ -31,4 +31,11 @@
     text-decoration: none;
     color: #666;
   }
+
+  @media (max-width: 1124px) {
+    .footer {
+      width: auto;
+      padding: 0 24px;
+    }
+  }
 </style>

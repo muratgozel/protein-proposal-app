@@ -1,4 +1,6 @@
 <script>
+  import {onMount} from 'svelte';
+  import Quill from 'quill';
   import {prevSeasonRecap} from '@/lib/store/prevSeasonRecap.js';
   import { getNotificationsContext } from 'svelte-notifications';
 

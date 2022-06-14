@@ -2,26 +2,52 @@
   import metapatcher from 'metapatcher';
   import {link} from 'svelte-routing'
   import {_} from 'svelte-i18n'
+  import Loading from "@/lib/components/Loading.svelte";
   import {viewport} from '@/lib/store/viewport'
+  import {auth} from '@/lib/store/auth.js';
+  import {toolbox} from '@/lib/store/toolbox.js';
+  import {proposals} from '@/lib/store/proposals.js';
 
   metapatcher.setPageMeta({
     title: 'Protein Proposal App'
   })
 </script>
 
-<div class="body">
-  <div class="links">
-    <a href="/proposal/create/seasonal-budget-request" use:link title="Create A Seasonal Budget Request Proposal">Create A Seasonal Budget Request Proposal</a>
+<h2>Welcome to Protein Governance Platform</h2>
+
+<div class="sections">
+  <div class="section">
+    <h3>Latest Proposals</h3>
+    {#if $proposals.fetching === true}
+      <Loading />
+    {:else if $proposals.error}
+      <p>{$proposals.error.message}</p>
+    {:else}
+      {#if $proposals.data.length === 0}
+        <p>There is no proposals yet.</p>
+      {:else}
+        {#each $proposals.data as proposal}
+          <a href="#" title="{proposal.title}">{proposal.title}</a><br>
+        {/each}
+      {/if}
+    {/if}
   </div>
+  <div class="section">
+    <h3>Craft A Proposal</h3>
+      {#each $toolbox.data as toolboxitem}
+        <a href="/proposal/craft/{toolboxitem.slug}" use:link title="Create {toolboxitem.title} Proposal">{toolboxitem.title}</a><br>
+      {/each}
+  </div>  
 </div>
 
 <style>
-  .body {
-    width: 1024px;
-    margin: 0 auto;
+  .sections {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+  }
+  .section {
+    flex-basis: 40%;
+    flex-grow: 1;
   }
   .links a {
     color: black;

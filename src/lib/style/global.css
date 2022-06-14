@@ -26,7 +26,11 @@
 }*/
 
 html {
-  font-family: -apple-system, 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+a {
+  color: black;
 }
 
 input, select, textarea {
@@ -41,6 +45,19 @@ textarea {
   height: 80px;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+[data-style="textarea"] {
+  height: 80px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px !important;
+  border: 1px solid #ddd;
+}
+.ql-container[data-style="textarea"] {
+  padding: 0;
+  height: 200px;
 }
 
 input[required],
