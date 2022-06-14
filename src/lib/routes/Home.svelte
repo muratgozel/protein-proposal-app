@@ -9,7 +9,7 @@
   import {proposals} from '@/lib/store/proposals.js';
 
   metapatcher.setPageMeta({
-    title: 'Protein Proposal App'
+    title: 'Protein Governance'
   })
 </script>
 
