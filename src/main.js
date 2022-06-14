@@ -3,14 +3,15 @@ import '@/lib/style/global.css'
 import 'quill/dist/quill.bubble.css';
 import '@/lib/style/gridjs.css';
 import { regionist } from 'regionist'
-import { register, init, locale } from 'svelte-i18n'
+import { addMessages, init, locale } from 'svelte-i18n'
 import { enableES5 } from 'immer'
+import en from './translations/en.json';
 import App from './App.svelte'
 
 enableES5()
 
 const region = regionist.guess()
-register('en', () => import('./translations/en.json'))
+addMessages('en', en)
 locale.set(region.locale.replace('_', '-').toLowerCase())
 init({
   fallbackLocale: 'en',
