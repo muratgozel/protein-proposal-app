@@ -1,6 +1,7 @@
 import { readable } from "svelte/store";
 
 const initialState = {
+  'Title': 'Title',
   'Summary': 'Summary',
   'Team': 'Team',
   'Requested Amount Of $PRTN': 'RequestedAmountOfPrtn',

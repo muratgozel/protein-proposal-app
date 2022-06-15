@@ -18,126 +18,30 @@
   import {proposals} from '@/lib/store/proposals.js';
 
   export let name;
-/*
+
   seasonalBudgetRequestStore.set(Object.values($toolboxSvelteMap).reduce((memo, c) => {
     memo[c] = ''
     return memo
   }, {}))
-*/
+
   const { addNotification } = getNotificationsContext();
-
-  const fetchOkrs = async (season) => {
-    const token = store.get('token')
-    const resp = await fetch(`${import.meta.env.VITE_BACKEND_URL}/notion/okrs/?season=${season}`, {
-      headers: {
-        Authorization: 'Bearer ' + token
-      }
-    })
-    if (resp.status < 200 || resp.status > 299) {
-      return {error: new Error('Server responded with ' + resp.status)}
-    }
-
-    try {
-      const json = await resp.json()
-      return json
-    } catch (error) {
-      return {error}
-    }
-  }
-
-  let okrs = false;
-  selectedSeason.subscribe(state => {
-    if (state != '0') {
-      okrs = true
-      fetchOkrs(state).then(result => {
-        okrs = result.okrs
-      })
-    }
-  })
 
   $: toolboxitem = $toolbox.data.filter(o => o.svelteComponent == name)[0]
   $: teamtitle = $selectedTeam ? $teams.data.filter(t => t.id == $selectedTeam)[0].title : ''
   $: nextSeasonTitle = $selectedSeason ? $seasons.data.list.filter(s => s.id == $selectedSeason)[0].title : ''
 
   function submitProposal() {
-    return;
-
     const isUuid = (v) => {
       const re = /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i
       return re.test(v)
     }
 
-    if (!isUuid($selectedSeason)) {
-      return addNotification({
-        text: 'Please choose season.',
-        position: 'top-center',
-        type: 'danger',
-        removeAfter: 4000
-      })
-    }
-
-    if (!isUuid($selectedTeam)) {
-      return addNotification({
-        text: 'Please choose team.',
-        position: 'top-center',
-        type: 'danger',
-        removeAfter: 4000
-      })
-    }
-
-    if ($initiatives.length === 0) {
-      return addNotification({
-        text: 'Please clarify budget breakdown.',
-        position: 'top-center',
-        type: 'danger',
-        removeAfter: 4000
-      })
-    }
-
-    if ($teamMembers.length === 0) {
-      return addNotification({
-        text: 'Please add your team members for the season.',
-        position: 'top-center',
-        type: 'danger',
-        removeAfter: 4000
-      })
-    }
-
-    if ($seasonalBudgetRequestStore.GoodGrowthAlignment.ops[0].insert.length < 2) {
-      return addNotification({
-        text: 'Please fill out Good Growth Alignment of your proposal.',
-        position: 'top-center',
-        type: 'danger',
-        removeAfter: 4000
-      })
-    }
-
-    if ($seasonalBudgetRequestStore.Tldr.ops[0].insert.length < 2) {
-      return addNotification({
-        text: 'Please fill out TL;DR section.',
-        position: 'top-center',
-        type: 'danger',
-        removeAfter: 4000
-      })
-    }
-
-    if (!$seasonalBudgetRequestStore.RequestedAmountOfPrtn && !$seasonalBudgetRequestStore.RequestedAmountOfUsdc) {
-      return addNotification({
-        text: 'Please specify how much amont of $PRTN and/or $USDC you request.',
-        position: 'top-center',
-        type: 'danger',
-        removeAfter: 4000
-      })
-    }
-
     $seasonalBudgetRequestStore.Season = $selectedSeason
     $seasonalBudgetRequestStore.Team = $selectedTeam
-    $seasonalBudgetRequestStore.Initiatives = $initiatives
-    $seasonalBudgetRequestStore.TeamMembers = $teamMembers
     $seasonalBudgetRequestStore.votingPlatform = toolboxitem.votingPlatform
     $seasonalBudgetRequestStore.votingMethod = toolboxitem.votingMethod
 
-    const title = `${nextSeasonTitle} Budget Request - ${teamtitle}`
+    const title = `${$seasonalBudgetRequestStore.Title}`
 
     const token = store.get('token')
     fetch(`${import.meta.env.VITE_BACKEND_URL}/proposal/submit`, {
@@ -172,9 +76,6 @@
       proposals.refetch();
 
       navigate('/proposal/list');
-
-      initiatives.flush()
-      teamMembers.flush()
     })
     .catch(err => {
       return addNotification({

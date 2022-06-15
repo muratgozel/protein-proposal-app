@@ -1,3 +1,4 @@
+export {default as Title} from './Title.svelte'
 export {default as Team} from './Team.svelte'
 export {default as RequestedAmountOfPrtn} from './RequestedAmountOfPrtn.svelte'
 export {default as RequestedAmountOfUsdc} from './RequestedAmountOfUsdc.svelte'

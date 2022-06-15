@@ -100,7 +100,7 @@
         removeAfter: 4000
       })
     }
-
+    /*
     if ($seasonalBudgetRequestStore.GoodGrowthAlignment.ops[0].insert.length < 2) {
       return addNotification({
         text: 'Please fill out Good Growth Alignment of your proposal.',
@@ -127,6 +127,7 @@
         removeAfter: 4000
       })
     }
+    */
 
     $seasonalBudgetRequestStore.Season = $selectedSeason
     $seasonalBudgetRequestStore.Team = $selectedTeam
