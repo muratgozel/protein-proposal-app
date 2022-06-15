@@ -9,3 +9,9 @@
     <a href="/proposal/craft/{toolboxitem.slug}" use:link title="Create {toolboxitem.title} Proposal">{toolboxitem.title}</a><br>
   {/each}
 </div>
+
+<style>
+  .links a {
+    line-height: 1.6;
+  }
+</style>

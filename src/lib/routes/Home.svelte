@@ -11,6 +11,12 @@
   metapatcher.setPageMeta({
     title: 'Protein Governance'
   })
+
+  auth.subscribe(state => {
+    if (state.fetching === false && state.data) {
+      proposals.refetch()
+    }
+  })
 </script>
 
 <h2>Welcome to Protein Governance Platform</h2>
@@ -21,7 +27,7 @@
     {#if $proposals.fetching === true}
       <Loading />
     {:else if $proposals.error}
-      <p>{$proposals.error.message}</p>
+      <p></p>
     {:else}
       {#if $proposals.data.length === 0}
         <p>There is no proposals yet.</p>
@@ -48,6 +54,9 @@
   .section {
     flex-basis: 40%;
     flex-grow: 1;
+  }
+  .section a {
+    line-height: 1.6;
   }
   .links a {
     color: black;
